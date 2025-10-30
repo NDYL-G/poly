@@ -25,7 +25,7 @@ jobs:
         run: node scripts/build-pages.js
         env:
           WEATHERAPI_KEY: ${{ secrets.WEATHERAPI_KEY }}
-          STORMGLASS_KEY: ${{ secrets/STORMGLASS_KEY }}
+          STORMGLASS_KEY: ${{ secrets.STORMGLASS_KEY }}
 
       - name: Commit updates
         run: |
