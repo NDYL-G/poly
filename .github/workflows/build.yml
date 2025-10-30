@@ -2,12 +2,12 @@ name: Build VVX Pages
 
 on:
   push:                      # show & run on any commit
-  workflow_dispatch:         # allow manual runs
+  workflow_dispatch:         # allow manual runs from the Actions tab
   schedule:
     - cron: "*/30 * * * *"   # every 30 minutes
 
 permissions:
-  contents: write            # allow commits from the workflow
+  contents: write            # let the workflow commit updated pages
 
 jobs:
   build:
