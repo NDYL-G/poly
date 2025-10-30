@@ -1,12 +1,13 @@
 name: Build VVX Pages
 
 on:
+  push:                      # makes the workflow appear/run on your next commit
+  workflow_dispatch:         # lets you run it manually
   schedule:
     - cron: "*/30 * * * *"   # every 30 minutes
-  workflow_dispatch:         # allow manual runs from the Actions tab
 
 permissions:
-  contents: write            # required so the workflow can commit the generated files
+  contents: write            # required to commit generated files
 
 jobs:
   build:
@@ -20,16 +21,20 @@ jobs:
         with:
           node-version: '20'
 
+      # Optional: prove the workflow runs even if your script isn't ready
+      - name: Hello (sanity check)
+        run: node -e "console.log('Workflow is alive ✨')"
+
       - name: Build pages
         run: node scripts/build-pages.js
         env:
           WEATHERAPI_KEY: ${{ secrets.WEATHERAPI_KEY }}
-          STORMGLASS_KEY: ${{ secrets/STORMGLASS_KEY }}
+          STORMGLASS_KEY: ${{ secrets.STORMGLASS_KEY }}
 
       - name: Commit updates
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@users.noreply.github.com"
-          git add page1-weather.html page2-tides.html page3-moon.html page4-sun.html
+          git add page1-weather.html page2-tides.html page3-moon.html page4-sun.html || true
           git commit -m "Auto-build VVX pages" || echo "No changes to commit"
           git push
