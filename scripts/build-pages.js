@@ -3,7 +3,8 @@
 // - Weather: hourly (06–22 local) or on first run; source: Open-Meteo (no key)
 // - Tides: today+tomorrow (48h) once/day at 02:00 local; source: Stormglass (needs STORMGLASS_KEY)
 // - Astronomy: once/day at 06:00 local; source: WeatherAPI (needs WEATHERAPI_KEY)
-// Supports manual forcing via env: FORCE_TIDES=1, FORCE_ASTRONOMY=1
+// Force options via env: FORCE_TIDES=1, FORCE_ASTRONOMY=1
+// Optional tide coords via env: TIDE_LAT, TIDE_LNG (use a nearby harbour if needed)
 
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -85,59 +86,100 @@ async function fetchWeather() {
 
 async function fetchAstronomy() {
   const key = process.env.WEATHERAPI_KEY;
-  if (!key) return null; // will render placeholders if absent
+  if (!key) return null; // placeholders if absent
   const j = await fetch(`https://api.weatherapi.com/v1/astronomy.json?key=${key}&q=Cornwall&dt=today`).then(r => r.json());
   const a = j.astronomy?.astro || {};
   const phaseName = a.moon_phase || '—';
   const phaseIcon = (phaseName.toLowerCase().replace(/\s+/g, '-')) || 'full-moon';
   return {
     sunrise: a.sunrise || '--:--',
-    sunset: a.sunset || '--:--',
+    sunset:  a.sunset  || '--:--',
     phaseName,
     phaseIcon,
     _date: ymdLocal()
   };
 }
 
-// 48h tide extremes for today + tomorrow
+// 48h tide extremes for today + tomorrow, with debug + fallback + optional tide coords
 async function fetchTides2Days() {
   const key = process.env.STORMGLASS_KEY;
   if (!key) return null;
 
-  const today = new Date(now().toLocaleString('en-GB', { timeZone: tz }));
-  today.setHours(0, 0, 0, 0);
-  const startISO = today.toISOString();
+  // allow overriding tide coordinates (harbour coords recommended)
+  const tideLat = process.env.TIDE_LAT ? Number(process.env.TIDE_LAT) : lat;
+  const tideLng = process.env.TIDE_LNG ? Number(process.env.TIDE_LNG) : lng;
 
-  const end = new Date(today);
-  end.setDate(end.getDate() + 2);
+  // Local midnight today and end of tomorrow (local tz) -> ISO
+  const todayLocalMidnight = new Date(new Date().toLocaleString('en-GB', { timeZone: tz }));
+  todayLocalMidnight.setHours(0,0,0,0);
+  const startISO = todayLocalMidnight.toISOString();
+
+  const end = new Date(todayLocalMidnight);
+  end.setDate(end.getDate() + 2);                 // +2 days to include tomorrow 23:59
   end.setMilliseconds(end.getMilliseconds() - 1);
   const endISO = end.toISOString();
 
-  const url = `https://api.stormglass.io/v2/tide/extremes/point?lat=${lat}&lng=${lng}&start=${startISO}&end=${endISO}`;
-  const j = await fetch(url, { headers: { Authorization: key } }).then(r => r.json());
+  async function query(start, end) {
+    const url = `https://api.stormglass.io/v2/tide/extremes/point?lat=${tideLat}&lng=${tideLng}&start=${start}&end=${end}`;
+    const res = await fetch(url, { headers: { Authorization: key } });
+    const text = await res.text(); // read text for diagnostics
+    let json;
+    try { json = JSON.parse(text); } catch { json = { parseError: true, raw: text }; }
+    return { status: res.status, json };
+  }
 
-  const list = (j.data || []).map(t => ({
-    type: t.type,
-    time: t.time,
-    height: Number(t.height || 0),
+  // primary window (today 00:00 → tomorrow 23:59)
+  let { status, json } = await query(startISO, endISO);
+
+  // if empty or error, use a fallback window (now-12h → now+48h) to catch edge cases
+  const dataArr = Array.isArray(json?.data) ? json.data : [];
+  if (status !== 200 || dataArr.length === 0) {
+    const nowUTC = new Date();
+    const fallbackStart = new Date(nowUTC.getTime() - 12 * 3600 * 1000).toISOString();
+    const fallbackEnd   = new Date(nowUTC.getTime() + 48 * 3600 * 1000).toISOString();
+
+    console.log('[Stormglass] Primary window empty or error',
+      { status, count: dataArr.length, sample: dataArr[0], parseError: json?.parseError });
+
+    ({ status, json } = await query(fallbackStart, fallbackEnd));
+  }
+
+  // final check
+  const list = Array.isArray(json?.data) ? json.data : [];
+  console.log('[Stormglass] Final response', { status, count: list.length });
+
+  // If still no data, surface a minimal structure so UI shows "—"
+  if (!list.length) {
+    return {
+      _date: ymdLocal(todayLocalMidnight),
+      todayKey: ymdLocal(todayLocalMidnight),
+      tomorrowKey: ymdLocal(new Date(todayLocalMidnight.getTime() + 86400000)),
+      todayItems: ['—'], tomorrowItems: ['—'],
+      raw: { today: [], tomorrow: [], diagnostics: json }
+    };
+  }
+
+  // Map + group by day
+  const mapped = list.map(t => ({
+    type: t.type, time: t.time, height: Number(t.height || 0),
     ymd: ymdLocal(new Date(t.time))
   }));
 
-  const todayKey = ymdLocal(today);
-  const tomorrowRef = new Date(today); tomorrowRef.setDate(tomorrowRef.getDate() + 1);
+  const todayKey    = ymdLocal(todayLocalMidnight);
+  const tomorrowRef = new Date(todayLocalMidnight); tomorrowRef.setDate(tomorrowRef.getDate() + 1);
   const tomorrowKey = ymdLocal(tomorrowRef);
 
   const byDay = { todayKey, tomorrowKey, today: [], tomorrow: [] };
-  for (const e of list) {
+  for (const e of mapped) {
     if (e.ymd === todayKey) byDay.today.push(e);
     else if (e.ymd === tomorrowKey) byDay.tomorrow.push(e);
   }
-  byDay.today.sort((a, b) => new Date(a.time) - new Date(b.time));
-  byDay.tomorrow.sort((a, b) => new Date(a.time) - new Date(b.time));
-  byDay.today = byDay.today.slice(0, 4);
-  byDay.tomorrow = byDay.tomorrow.slice(0, 4);
+  byDay.today.sort((a,b)=> new Date(a.time)-new Date(b.time));
+  byDay.tomorrow.sort((a,b)=> new Date(a.time)-new Date(b.time));
+  byDay.today    = byDay.today.slice(0,4);
+  byDay.tomorrow = byDay.tomorrow.slice(0,4);
 
-  const fmtRow = (e) => `${e.type === 'high' ? '↑ High' : '↓ Low'} ${fmtTime(e.time)} — ${e.height.toFixed(1)} m`;
+  const fmtRow = (e) => `${e.type==='high'?'↑ High':'↓ Low'} ${fmtTime(e.time)} — ${e.height.toFixed(1)} m`;
 
   return {
     _date: todayKey,
@@ -148,14 +190,14 @@ async function fetchTides2Days() {
   };
 }
 
-// ===== DECISION LOGIC (with seeding + force) =====
+// ===== MAIN =====
 const cache = await readCache();
 
+// DECISION LOGIC (with seeding + force)
 function shouldFetchWeather() {
   // fetch during active window OR seed if absent
   return withinActive() || !cache.weather;
 }
-
 function shouldFetchAstronomy() {
   if (FORCE_ASTRONOMY) return true;
   const today = ymdLocal();
@@ -163,7 +205,6 @@ function shouldFetchAstronomy() {
   const h = hourLocal();
   return h === 6 && cache.astronomy._date !== today;
 }
-
 function shouldFetchTides2D() {
   if (FORCE_TIDES) return true;
   const today = ymdLocal();
@@ -172,7 +213,7 @@ function shouldFetchTides2D() {
   return h === 2 && cache.tides2d._date !== today;
 }
 
-// ===== FETCH (guarded) =====
+// FETCH (guarded)
 let weather = cache.weather;
 if (shouldFetchWeather()) {
   try { weather = await fetchWeather(); cache.weather = weather; } catch {}
