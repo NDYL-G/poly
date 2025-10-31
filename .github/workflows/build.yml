@@ -4,7 +4,7 @@ on:
   push:                  # run on any commit
   workflow_dispatch:     # allow manual runs from the Actions tab
   schedule:
-    - cron: "0 * * * *"  # run hourly (UTC); your script gates API calls by Europe/London local time
+    - cron: "0 * * * *"  # run hourly (UTC); script gates API calls via Europe/London local time
 
 permissions:
   contents: write        # allow the workflow to commit changes
@@ -26,12 +26,16 @@ jobs:
         with:
           node-version: '20'
 
+      # ---------- EITHER use the normal run ----------
       - name: Build pages
-        # Force update = 1
         run: FORCE_TIDES=1 FORCE_ASTRONOMY=1 node scripts/build-pages.js
+        # run: node scripts/build-pages.js
         env:
           WEATHERAPI_KEY: ${{ secrets.WEATHERAPI_KEY }}
           STORMGLASS_KEY: ${{ secrets.STORMGLASS_KEY }}
+          # Optional: set harbour coordinates if needed
+          TIDE_LAT: ${{ secrets.TIDE_LAT }}
+          TIDE_LNG: ${{ secrets.TIDE_LNG }}
 
       - name: Commit updates
         run: |
