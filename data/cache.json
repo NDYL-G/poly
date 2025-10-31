@@ -2,11 +2,11 @@
   "weather": {
     "c": 12,
     "f": 54,
-    "kmh": 32,
-    "mph": 20,
-    "winddir": 217,
-    "icon": "cloudy",
-    "_ts": "2025-10-31T22:28:19.334Z"
+    "kmh": 33,
+    "mph": 21,
+    "winddir": 218,
+    "icon": "rain",
+    "_ts": "2025-10-31T22:30:17.662Z"
   },
   "tides2d": null,
   "astronomy": {
