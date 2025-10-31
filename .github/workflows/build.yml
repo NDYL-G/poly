@@ -1,17 +1,22 @@
 name: Build VVX Pages
 
 on:
-  push:                      # show & run on any commit
-  workflow_dispatch:         # allow manual runs from the Actions tab
+  push:                  # run on any commit
+  workflow_dispatch:     # allow manual runs from the Actions tab
   schedule:
-    - cron: "*/30 * * * *"   # every 30 minutes
+    - cron: "0 * * * *"  # run hourly (UTC); your script gates API calls by Europe/London local time
 
 permissions:
-  contents: write            # let the workflow commit updated pages
+  contents: write        # allow the workflow to commit changes
+
+concurrency:
+  group: build-vvx-pages
+  cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -31,6 +36,6 @@ jobs:
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@users.noreply.github.com"
-          git add page1-weather.html page2-tides.html page3-moon.html page4-sun.html || true
+          git add page1-weather.html page2-tides.html page3-moon.html page4-sun.html data/cache.json || true
           git commit -m "Auto-build VVX pages" || echo "No changes to commit"
           git push
