@@ -1,0 +1,13 @@
+{
+  "weather": {
+    "c": 13,
+    "f": 55,
+    "kmh": 32,
+    "mph": 20,
+    "winddir": 206,
+    "icon": "clear-day",
+    "_ts": "2025-10-31T21:24:05.332Z"
+  },
+  "tides2d": null,
+  "astronomy": null
+}
