@@ -28,8 +28,8 @@ jobs:
 
       # ---------- EITHER use the normal run ----------
       - name: Build pages
-        run: FORCE_TIDES=1 FORCE_ASTRONOMY=1 node scripts/build-pages.js
-        # run: node scripts/build-pages.js
+        # run: FORCE_TIDES=1 FORCE_ASTRONOMY=1 node scripts/build-pages.js
+        run: node scripts/build-pages.js
         env:
           WEATHERAPI_KEY: ${{ secrets.WEATHERAPI_KEY }}
           STORMGLASS_KEY: ${{ secrets.STORMGLASS_KEY }}
