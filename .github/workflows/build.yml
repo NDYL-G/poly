@@ -28,7 +28,7 @@ jobs:
 
       - name: Build pages
         # Force update = 1
-        run: FORCE_TIDES=1 FORCE_ASTRONOMY=0 node scripts/build-pages.js
+        run: FORCE_TIDES=1 FORCE_ASTRONOMY=1 node scripts/build-pages.js
         env:
           WEATHERAPI_KEY: ${{ secrets.WEATHERAPI_KEY }}
           STORMGLASS_KEY: ${{ secrets.STORMGLASS_KEY }}
