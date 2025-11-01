@@ -1,12 +1,12 @@
 {
   "weather": {
-    "c": 12,
-    "f": 54,
-    "kmh": 34,
-    "mph": 21,
-    "winddir": 219,
-    "icon": "rain",
-    "_ts": "2025-10-31T22:56:25.758Z"
+    "c": 11,
+    "f": 52,
+    "kmh": 24,
+    "mph": 15,
+    "winddir": 226,
+    "icon": "cloudy",
+    "_ts": "2025-11-01T06:26:28.145Z"
   },
   "tides2d": {
     "_date": "2025-11-01",
@@ -82,10 +82,10 @@
     }
   },
   "astronomy": {
-    "sunrise": "07:37 AM",
-    "sunset": "05:48 PM",
+    "sunrise": "07:38 AM",
+    "sunset": "05:47 PM",
     "phaseName": "Waxing Gibbous",
     "phaseIcon": "waxing-gibbous",
-    "_date": "NaN-NaN-NaN"
+    "_date": "2025-01-11"
   }
 }
