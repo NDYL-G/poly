@@ -1,7 +1,7 @@
 // scripts/build-pages.js
 // Builds 4 VVX-friendly HTML pages using external CSS (css/vvx.css)
-// Data sources: Weather (Open-Meteo), Tides (Stormglass), Astronomy (WeatherAPI)
-// Dark mode: auto-enabled between sunset and sunrise (adds class="dark-mode" on <html>)
+// Data: Weather (Open-Meteo), Tides (Stormglass), Astronomy (WeatherAPI)
+// Dark mode auto between sunset→sunrise via class="dark-mode" on <html>
 
 import fs from "node:fs/promises";
 import path from "node:path";
@@ -12,7 +12,7 @@ const lng = -5.0;
 const tz  = "Europe/London";
 const CACHE_PATH = "data/cache.json";
 
-// Force flags for one-off seeding (set in workflow): FORCE_TIDES=1 FORCE_ASTRONOMY=1
+// One-off seed flags (set in workflow): FORCE_TIDES=1 FORCE_ASTRONOMY=1
 const FORCE_TIDES = process.env.FORCE_TIDES === "1";
 const FORCE_ASTRONOMY = process.env.FORCE_ASTRONOMY === "1";
 
@@ -152,34 +152,45 @@ const fillH=Math.round(80*frac);
 const fillY=90-fillH;
 const windDirDeg=Math.round((weather.winddir ?? 0) % 360);
 
-// ===== Page bodies (no inline layout; VVX-safe) =====
+// ===== Page bodies (updated weather layout) =====
 const weatherBody = `
 <section class="weather">
-  <div class="row">
-    <div class="text-lg">${weather.c}°C / ${weather.f}°F</div>
-    <img class="icon-30" src="svg/weather/${weather.icon}.svg" alt="Weather icon" />
+  <!-- Top row: temp left, icon right -->
+  <div class="w-top">
+    <div class="w-temp text-lg">${weather.c}°C / ${weather.f}°F</div>
+    <img class="w-icon icon-30" src="svg/weather/${weather.icon}.svg" alt="Weather icon" />
   </div>
-  <div class="text-md">Wind: ${weather.mph} mph / ${weather.kmh} km/h</div>
-  <div class="row">
-    <div class="thermo">
-      <svg viewBox="0 0 20 100" width="18" height="95" aria-label="Thermometer">
-        <rect x="8" y="10" width="4" height="80" fill="#ddd" />
-        <rect x="8" y="${fillY}" width="4" height="${fillH}" fill="#FD9803" />
-        <circle cx="10" cy="94" r="6" fill="#FD9803"/>
-        <rect x="7" y="10" width="6" height="84" fill="none" stroke="#666" stroke-width="1"/>
-      </svg>
-      <div class="text-sm">Feels ~${weather.c}°C</div>
-    </div>
-    <div class="wind">
-      <div class="text-sm">Dir</div>
-      <svg viewBox="0 0 100 100" width="36" height="36" aria-label="Wind direction" style="transform:rotate(${windDirDeg}deg);">
-        <polygon points="50,8 60,35 50,30 40,35" fill="#112656"></polygon>
-        <rect x="47" y="30" width="6" height="50" fill="#112656"></rect>
-        <circle cx="50" cy="85" r="6" fill="#112656"></circle>
-      </svg>
-      <div class="text-xs">${windDirDeg}°</div>
-    </div>
-  </div>
+
+  <!-- Wind speed line -->
+  <div class="w-windline text-md">Wind: ${weather.mph} mph / ${weather.kmh} km/h</div>
+
+  <!-- Bottom row: thermometer (left) & wind direction (right) -->
+  <table class="w-bottom" aria-label="Temperature and Wind Direction">
+    <tr>
+      <td class="w-left">
+        <div class="thermo">
+          <svg viewBox="0 0 20 100" width="18" height="95" aria-label="Thermometer">
+            <rect x="8" y="10" width="4" height="80" fill="#ddd" />
+            <rect x="8" y="${fillY}" width="4" height="${fillH}" fill="#FD9803" />
+            <circle cx="10" cy="94" r="6" fill="#FD9803"/>
+            <rect x="7" y="10" width="6" height="84" fill="none" stroke="#666" stroke-width="1"/>
+          </svg>
+          <div class="text-sm w-feels">Feels ~${weather.c}°C</div>
+        </div>
+      </td>
+      <td class="w-right">
+        <div class="wind">
+          <div class="text-sm w-dirlabel">Dir</div>
+          <svg viewBox="0 0 100 100" width="36" height="36" aria-label="Wind direction" style="transform:rotate(${windDirDeg}deg);">
+            <polygon points="50,8 60,35 50,30 40,35"></polygon>
+            <rect x="47" y="30" width="6" height="50"></rect>
+            <circle cx="50" cy="85" r="6"></circle>
+          </svg>
+          <div class="text-xs w-deg">${windDirDeg}°</div>
+        </div>
+      </td>
+    </tr>
+  </table>
 </section>`;
 
 const renderTideList = (label, items) => `
@@ -229,14 +240,14 @@ const isNight = (() => {
 })();
 const themeClass = isNight ? "dark-mode" : "";
 
-// ===== HTML wrapper (external CSS; header uses inline-block alignment for VVX) =====
+// ===== HTML wrapper (external CSS; header already working for you) =====
 const wrap = (title, body, nextPage) => `<!DOCTYPE html>
 <html lang="en" class="${themeClass}">
 <head>
   <meta charset="UTF-8">
   <title>${title}</title>
   <meta http-equiv="refresh" content="10; url='${nextPage}'">
-  <link rel="stylesheet" href="css/vvx.css?v=1">
+  <link rel="stylesheet" href="css/vvx.css?v=3">
 </head>
 <body>
   <div class="vvx-page">
