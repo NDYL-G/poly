@@ -175,7 +175,7 @@ const weatherBody = `
             <circle cx="10" cy="94" r="6" fill="#FD9803"/>
             <rect x="7" y="10" width="6" height="84" fill="none" stroke="#666" stroke-width="1"/>
           </svg>
-          <div class="text-sm w-feels">Feels ~${weather.c}°C</div>
+          <div class="text-sm w-feels">Feels  ${weather.c}°C</div>
         </div>
       </td>
       <td class="w-right">
