@@ -1,35 +1,44 @@
 // scripts/build-pages.js
 // Builds 4 VVX-friendly HTML pages using external CSS (css/vvx.css)
-// Weather (Open-Meteo), Tides (Stormglass), Astronomy (WeatherAPI)
+// Data sources: Weather (Open-Meteo), Tides (Stormglass), Astronomy (WeatherAPI)
+// Dark mode: auto-enabled between sunset and sunrise (adds class="dark-mode" on <html>)
 
 import fs from "node:fs/promises";
 import path from "node:path";
 
+// ===== CONFIG =====
 const lat = 50.4;
 const lng = -5.0;
 const tz  = "Europe/London";
 const CACHE_PATH = "data/cache.json";
 
+// Force flags for one-off seeding (set in workflow): FORCE_TIDES=1 FORCE_ASTRONOMY=1
 const FORCE_TIDES = process.env.FORCE_TIDES === "1";
 const FORCE_ASTRONOMY = process.env.FORCE_ASTRONOMY === "1";
 
-// ===== TIME HELPERS =====
+// ===== TIME HELPERS (safe) =====
 const fmtParts = (d = new Date(), opts = {}) =>
   new Intl.DateTimeFormat("en-GB", { timeZone: tz, ...opts }).formatToParts(d);
+
 const ymdLocal = (d = new Date()) => {
   const p = fmtParts(d, { year:"numeric", month:"2-digit", day:"2-digit" });
   const get = t => p.find(x => x.type === t)?.value;
   return `${get("year")}-${get("month")}-${get("day")}`;
 };
+
 const hourLocal = () => {
   const p = fmtParts(new Date(), { hour:"2-digit", hour12:false });
   return parseInt(p.find(x => x.type === "hour")?.value || "0", 10);
 };
+
 const withinActive = () => { const h = hourLocal(); return h >= 6 && h <= 22; };
+
 const fmtDate = (d = new Date()) =>
   new Intl.DateTimeFormat("en-GB", { timeZone: tz, day:"2-digit", month:"short", year:"numeric" }).format(d);
+
 const fmtTime = (d) =>
   new Intl.DateTimeFormat("en-GB", { timeZone: tz, hour:"2-digit", minute:"2-digit" }).format(new Date(d));
+
 const nowStr = () =>
   new Intl.DateTimeFormat("en-GB", { timeZone: tz, hour:"2-digit", minute:"2-digit" }).format(new Date());
 
@@ -54,7 +63,7 @@ async function fetchWeather() {
   const mph = Math.round(kmh * 0.621371);
   const dir = Math.round(w.winddirection ?? 0);
   const map = { 0:"clear-day", 1:"partly-cloudy", 2:"cloudy", 3:"rain", 45:"fog", 51:"rain", 61:"rain", 71:"snow", 95:"thunderstorm" };
-  return { c,f,kmh,mph,winddir:dir,icon:map[w.weathercode]||"clear-day",_ts:new Date().toISOString() };
+  return { c,f,kmh,mph,winddir:dir,icon:map[w.weathercode]||"clear-day", _ts:new Date().toISOString() };
 }
 
 async function fetchAstronomy() {
@@ -75,17 +84,24 @@ async function fetchTides2Days() {
   const url = `https://api.stormglass.io/v2/tide/extremes/point?lat=${lat}&lng=${lng}&start=${start.toISOString()}&end=${end.toISOString()}`;
   const res = await fetch(url, { headers:{ Authorization:key } });
   const j = await res.json();
-  const list = (j.data||[]).map(t => ({
-    type:t.type, time:t.time, height:Number(t.height||0), ymd:ymdLocal(new Date(t.time))
+
+  const list = (j.data || []).map(t => ({
+    type: t.type,
+    time: t.time,
+    height: Number(t.height || 0),
+    ymd: ymdLocal(new Date(t.time))
   }));
+
   const todayKey = ymdLocal(start);
   const tomorrowRef = new Date(start); tomorrowRef.setDate(tomorrowRef.getDate()+1);
   const tomorrowKey = ymdLocal(tomorrowRef);
+
   const byDay = { today:[], tomorrow:[] };
   for (const e of list) {
     if (e.ymd === todayKey) byDay.today.push(e);
     else if (e.ymd === tomorrowKey) byDay.tomorrow.push(e);
   }
+
   const fmtRow = e => `${e.type==="high"?"↑ High":"↓ Low"} ${fmtTime(e.time)} — ${e.height.toFixed(1)} m`;
   return { _date:todayKey, todayKey, tomorrowKey, todayItems:byDay.today.map(fmtRow), tomorrowItems:byDay.tomorrow.map(fmtRow) };
 }
@@ -93,7 +109,8 @@ async function fetchTides2Days() {
 // ===== DECISION LOGIC =====
 const cache = await readCache();
 const today = ymdLocal();
-function shouldFetchWeather() { return withinActive() || !cache.weather; }
+
+function shouldFetchWeather()   { return withinActive() || !cache.weather; }
 function shouldFetchAstronomy() {
   if (FORCE_ASTRONOMY) return true;
   if (!cache.astronomy) return true;
@@ -106,34 +123,36 @@ function shouldFetchTides2D() {
 }
 
 // ===== FETCH =====
-if (shouldFetchWeather()) try { cache.weather = await fetchWeather(); } catch {}
-if (shouldFetchAstronomy()) try { cache.astronomy = await fetchAstronomy(); } catch {}
-if (shouldFetchTides2D()) try { cache.tides2d = await fetchTides2Days(); } catch {}
+if (shouldFetchWeather())   { try { cache.weather   = await fetchWeather();   } catch {} }
+if (shouldFetchAstronomy()) { try { cache.astronomy = await fetchAstronomy(); } catch {} }
+if (shouldFetchTides2D())   { try { cache.tides2d   = await fetchTides2Days(); } catch {} }
 await writeCache(cache);
 
 // ===== FALLBACKS =====
-const weather = cache.weather || { c:0, f:32, kmh:0, mph:0, winddir:0, icon:"clear-day" };
+const weather   = cache.weather   || { c:0, f:32, kmh:0, mph:0, winddir:0, icon:"clear-day" };
 const astronomy = cache.astronomy || { sunrise:"--:--", sunset:"--:--", phaseName:"—", phaseIcon:"full-moon" };
-const tides2d = cache.tides2d || { todayItems:["—"], tomorrowItems:["—"], todayKey:today, tomorrowKey:today };
+const tides2d   = cache.tides2d   || { todayItems:["—"], tomorrowItems:["—"], todayKey:today, tomorrowKey:today };
 
 // ===== PAGE CONTENT =====
 const stripMeridiem = s => s.replace(/\s*(AM|PM)$/i, "");
 const sunrise = stripMeridiem(astronomy.sunrise);
 const sunset  = stripMeridiem(astronomy.sunset);
+
 const dayLabel = (ymdStr) => {
   const [y,m,d] = ymdStr.split("-").map(Number);
-  const date = new Date(Date.UTC(y,m-1,d,12,0,0));
+  const date = new Date(Date.UTC(y, m-1, d, 12, 0, 0));
   return new Intl.DateTimeFormat("en-GB", { timeZone:tz, weekday:"short", day:"2-digit", month:"short" }).format(date);
 };
 const compactTide = s => s.replace(/\s*tide\s*/i," ").replace("  "," ").replace(" m","m");
 
+// Weather visuals
 const tMin=-5, tMax=30;
 const frac=Math.max(0,Math.min(1,(weather.c - tMin)/(tMax - tMin)));
 const fillH=Math.round(80*frac);
 const fillY=90-fillH;
-const windDirDeg=Math.round(weather.winddir%360);
+const windDirDeg=Math.round((weather.winddir ?? 0) % 360);
 
-// Weather Page
+// ===== Page bodies (no inline layout; VVX-safe) =====
 const weatherBody = `
 <section class="weather">
   <div class="row">
@@ -142,18 +161,18 @@ const weatherBody = `
   </div>
   <div class="text-md">Wind: ${weather.mph} mph / ${weather.kmh} km/h</div>
   <div class="row">
-    <div class="thermo row" style="gap:6px;">
-      <svg viewBox="0 0 20 100" width="18" height="95">
+    <div class="thermo">
+      <svg viewBox="0 0 20 100" width="18" height="95" aria-label="Thermometer">
         <rect x="8" y="10" width="4" height="80" fill="#ddd" />
         <rect x="8" y="${fillY}" width="4" height="${fillH}" fill="#FD9803" />
-        <circle cx="10" cy="94" r="6" fill="#FD9803" />
-        <rect x="7" y="10" width="6" height="84" fill="none" stroke="#666" stroke-width="1" />
+        <circle cx="10" cy="94" r="6" fill="#FD9803"/>
+        <rect x="7" y="10" width="6" height="84" fill="none" stroke="#666" stroke-width="1"/>
       </svg>
       <div class="text-sm">Feels ~${weather.c}°C</div>
     </div>
     <div class="wind">
       <div class="text-sm">Dir</div>
-      <svg viewBox="0 0 100 100" width="36" height="36" style="transform:rotate(${windDirDeg}deg);">
+      <svg viewBox="0 0 100 100" width="36" height="36" aria-label="Wind direction" style="transform:rotate(${windDirDeg}deg);">
         <polygon points="50,8 60,35 50,30 40,35" fill="#112656"></polygon>
         <rect x="47" y="30" width="6" height="50" fill="#112656"></rect>
         <circle cx="50" cy="85" r="6" fill="#112656"></circle>
@@ -170,6 +189,7 @@ const renderTideList = (label, items) => `
     ${(items && items.length ? items : ["—"]).map(x => `<li>${compactTide(x)}</li>`).join("")}
   </ul>
 </section>`;
+
 const tidesBody = `
 ${renderTideList("Today • " + dayLabel(tides2d.todayKey), tides2d.todayItems)}
 ${renderTideList("Tomorrow • " + dayLabel(tides2d.tomorrowKey), tides2d.tomorrowItems)}`;
@@ -185,34 +205,33 @@ const moonBody = `
 
 const sunBody = `
 <section class="sun row">
-  <div class="stack" style="text-align:center;">
+  <div class="stack center">
     <img class="icon-28" src="svg/sunset/sunrise.svg" alt="Sunrise" />
     <div class="text-md bold">${sunrise}</div>
   </div>
-  <div class="stack" style="text-align:center;">
+  <div class="stack center">
     <img class="icon-28" src="svg/sunset/sunset.svg" alt="Sunset" />
     <div class="text-md bold">${sunset}</div>
   </div>
 </section>`;
 
-// HTML wrapper
-// Determine theme based on current time vs sunrise/sunset
-const isAfterSunset = (() => {
+// ===== Theme switching (dark between sunset and sunrise) =====
+const isNight = (() => {
   try {
     const now = new Date();
-    const sRise = new Date(`${ymdLocal()}T${sunrise.replace(/(\d+):(\d+)/, "$1:$2")}`);
-    const sSet  = new Date(`${ymdLocal()}T${sunset.replace(/(\d+):(\d+)/, "$1:$2")}`);
-    const hNow  = now.getHours() + now.getMinutes() / 60;
-    const hRise = Number(sunrise.split(":")[0]) + Number(sunrise.split(":")[1] || 0) / 60;
-    const hSet  = Number(sunset.split(":")[0]) + Number(sunset.split(":")[1] || 0) / 60;
-    return hNow >= hSet || hNow < hRise; // dark between sunset and sunrise
+    const [srH, srM="0"] = sunrise.split(":");
+    const [ssH, ssM="0"] = sunset.split(":");
+    const hNow = now.getHours() + now.getMinutes()/60;
+    const hRise = Number(srH) + Number(srM)/60;
+    const hSet  = Number(ssH) + Number(ssM)/60;
+    return hNow >= hSet || hNow < hRise;
   } catch { return false; }
 })();
-const themeClass = isAfterSunset ? "dark-mode" : "";
+const themeClass = isNight ? "dark-mode" : "";
+
+// ===== HTML wrapper (external CSS; header uses inline-block alignment for VVX) =====
 const wrap = (title, body, nextPage) => `<!DOCTYPE html>
 <html lang="en" class="${themeClass}">
-
-<html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>${title}</title>
@@ -227,4 +246,23 @@ const wrap = (title, body, nextPage) => `<!DOCTYPE html>
       </div>
       <div class="heading">
         <div class="title">${title}</div>
-        <div c
+        <div class="date">${fmtDate()}</div>
+      </div>
+    </header>
+
+    <main class="content" role="main">
+      ${body}
+    </main>
+
+    <footer class="updated" role="contentinfo">Updated: ${nowStr()}</footer>
+  </div>
+</body>
+</html>`;
+
+// ===== Write pages =====
+await fs.writeFile("page1-weather.html", wrap("Weather", weatherBody, "page2-tides.html"));
+await fs.writeFile("page2-tides.html",   wrap("Tide Times", tidesBody, "page3-moon.html"));
+await fs.writeFile("page3-moon.html",    wrap("Moon", moonBody, "page4-sun.html"));
+await fs.writeFile("page4-sun.html",     wrap("Sunrise & Sunset", sunBody, "page1-weather.html"));
+
+console.log("Built VVX pages:", new Date().toISOString(), "| theme:", themeClass || "light");
