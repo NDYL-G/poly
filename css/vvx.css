@@ -42,6 +42,61 @@ html,body {
 .label{font-weight:bold;color:#FD9803;}
 .updated{position:absolute;left:0;right:0;bottom:4px;text-align:center;font-size:10px;color:#666;}
 
+/* ===== Dark mode palette ===== */
+.dark-mode body,
+.dark-mode .vvx-page {
+  background: #0E1117;
+  color: #E2E8F0;
+}
+
+.dark-mode .page-header {
+  border-bottom: 2px solid #F6AD55;
+  background: #1A202C;
+}
+
+.dark-mode .logo {
+  filter: brightness(1.2);
+}
+
+.dark-mode .title {
+  color: #F6AD55;
+}
+
+.dark-mode .label {
+  color: #F6AD55;
+}
+
+.dark-mode .updated {
+  color: #A0AEC0;
+}
+
+.dark-mode .list-compact li {
+  color: #E2E8F0;
+}
+
+.dark-mode svg rect[fill="#ddd"] {
+  fill: #2D3748 !important;
+}
+
+.dark-mode svg rect[fill="#FD9803"],
+.dark-mode svg circle[fill="#FD9803"] {
+  fill: #F6AD55 !important;
+}
+
+.dark-mode svg polygon,
+.dark-mode svg rect,
+.dark-mode svg circle {
+  stroke: none;
+  fill: #E2E8F0;
+}
+
+.dark-mode .wind svg polygon,
+.dark-mode .wind svg rect,
+.dark-mode .wind svg circle {
+  fill: #E2E8F0;
+}
+
+
 /* ===== Thermometer / wind tweaks ===== */
 .thermo svg{display:block;margin:0 auto;}
 .wind{text-align:center;}
