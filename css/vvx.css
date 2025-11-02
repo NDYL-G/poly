@@ -1,40 +1,47 @@
-/* css/vvx.css */
-html, body { margin: 0; padding: 0; background: #f4f4f4; color: #112656; font-family: Arial, sans-serif; }
-.vvx-page { width: 320px; height: 240px; overflow: hidden; background: #fff; position: relative; }
+/* css/vvx.css  — Poly VVX safe stylesheet  (no flexbox) */
+html,body {
+  margin:0; padding:0;
+  background:#f4f4f4; color:#112656;
+  font-family:Arial,sans-serif;
+}
+.vvx-page { width:320px; height:240px; overflow:hidden; background:#fff; position:relative; }
 
-/* Header */
-.page-header { display: flex; align-items: center; justify-content: space-between; padding: 4px 6px; border-bottom: 2px solid #FD9803; }
-.brand .logo { height: 18px; }
-.heading { text-align: right; }
-.heading .title { font-weight: bold; color: #FD9803; font-size: 12px; line-height: 1.1; }
-.heading .date { font-size: 11px; }
+/* ===== Header ===== */
+.page-header { border-bottom:2px solid #FD9803; background:#fff; }
+.hdr { width:100%; border-collapse:collapse; table-layout:fixed; }
+.hdr-left, .hdr-right { vertical-align:middle; padding:4px 6px; }
+.hdr-left { width:60px; }
+.hdr-right { text-align:right; }
+.logo { height:18px; display:block; }
+.title { font-weight:bold; color:#FD9803; font-size:12px; line-height:1.1; }
+.date { font-size:11px; line-height:1.1; }
 
-/* Content */
-.content { padding: 6px 8px; }
-.row { display: flex; align-items: center; justify-content: space-between; }
-.stack { display: block; }
+/* ===== Content ===== */
+.content { padding:6px 8px; }
+.row { width:100%; }
+.stack { display:block; }
+.center { text-align:center; }
 
-/* Typography */
-.text-xs { font-size: 10px; }
-.text-sm { font-size: 11px; }
-.text-md { font-size: 12px; }
-.text-lg { font-size: 18px; font-weight: bold; }
+/* ===== Typography ===== */
+.text-xs { font-size:10px; }
+.text-sm { font-size:11px; }
+.text-md { font-size:12px; }
+.text-lg { font-size:18px; font-weight:bold; }
+.bold { font-weight:bold; }
 
-/* Icons */
-.icon-28 { width: 28px; height: 28px; }
-.icon-30 { width: 30px; height: 30px; }
-.icon-32 { width: 32px; height: 32px; }
-.icon-36 { width: 36px; height: 36px; }
+/* ===== Icons ===== */
+.icon-28{width:28px;height:28px;}
+.icon-30{width:30px;height:30px;}
+.icon-32{width:32px;height:32px;}
 
-/* Lists */
-.list-compact { margin: 0; padding: 0; list-style: none; }
-.list-compact li { font-size: 11px; line-height: 1.25; margin: 0 0 2px 0; }
+/* ===== Lists ===== */
+.list-compact{margin:0;padding:0;list-style:none;}
+.list-compact li{font-size:11px;line-height:1.25;margin:0 0 2px 0;}
 
-/* Labels & footer */
-.label { font-weight: bold; color: #FD9803; }
-.muted { color: #666; }
-.updated { position: absolute; left: 0; right: 0; bottom: 4px; text-align: center; font-size: 10px; color: #666; }
+/* ===== Labels and footer ===== */
+.label{font-weight:bold;color:#FD9803;}
+.updated{position:absolute;left:0;right:0;bottom:4px;text-align:center;font-size:10px;color:#666;}
 
-/* Tiny helpers the VVX handles well */
-.thermo svg { display: block; }
-.wind { text-align: center; }
+/* ===== Thermometer / wind tweaks ===== */
+.thermo svg{display:block;margin:0 auto;}
+.wind{text-align:center;}
