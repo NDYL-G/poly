@@ -11,7 +11,6 @@ html, body {
   color: #112656;
   font-family: Arial, sans-serif;
 }
-
 .vvx-page {
   width: 320px;
   height: 240px;
@@ -20,9 +19,7 @@ html, body {
   position: relative;
 }
 
-/* ======================================================
-   Header (VVX-safe alignment)
-   ====================================================== */
+/* ===== Header (you said this is now fine) ===== */
 .page-header {
   border-bottom: 2px solid #FD9803;
   background: #fff;
@@ -30,55 +27,25 @@ html, body {
   font-size: 0;               /* remove gaps between inline-blocks */
   white-space: nowrap;        /* keep items on one line */
 }
-
-/* Align logo and text */
 .page-header .brand,
 .page-header .heading {
   display: inline-block;
   vertical-align: middle;
   font-size: 12px;            /* restore text size */
 }
+.page-header .brand  { width: 70px; text-align: left; }
+.page-header .heading{ width: 240px; text-align: right; overflow: hidden; }
+.logo  { height: 18px; display: block; }
+.title { font-weight: bold; color: #FD9803; font-size: 12px; line-height: 1.1; }
+.date  { font-size: 11px; line-height: 1.1; }
 
-.page-header .brand {
-  width: 70px;                /* logo area width (adjust if needed) */
-  text-align: left;
-}
-
-.page-header .heading {
-  width: 240px;               /* 320px - 70px - ~10px padding */
-  text-align: right;
-  overflow: hidden;
-}
-
-/* Logo and text styles */
-.logo {
-  height: 18px;
-  display: block;
-}
-
-.title {
-  font-weight: bold;
-  color: #FD9803;
-  font-size: 12px;
-  line-height: 1.1;
-}
-
-.date {
-  font-size: 11px;
-  line-height: 1.1;
-}
-
-/* ======================================================
-   Main content area
-   ====================================================== */
-.content {
-  padding: 6px 8px;
-}
+/* ===== Content area ===== */
+.content { padding: 6px 8px; }
 
 /* Layout helpers */
-.row     { width: 100%; margin: 4px 0; }
-.stack   { display: block; }
-.center  { text-align: center; }
+.row   { width: 100%; margin: 4px 0; }
+.stack { display: block; }
+.center{ text-align: center; }
 
 /* Typography */
 .text-xs { font-size: 10px; }
@@ -93,17 +60,55 @@ html, body {
 .icon-32 { width: 32px; height: 32px; }
 
 /* Lists */
-.list-compact      { margin: 0; padding: 0; list-style: none; }
-.list-compact li   { font-size: 11px; line-height: 1.25; margin: 0 0 2px 0; }
+.list-compact    { margin: 0; padding: 0; list-style: none; }
+.list-compact li { font-size: 11px; line-height: 1.25; margin: 0 0 2px 0; }
 
 /* Labels & footer */
 .label   { font-weight: bold; color: #FD9803; }
-.updated { position: absolute; left: 0; right: 0; bottom: 4px;
-           text-align: center; font-size: 10px; color: #666; }
+.updated { position: absolute; left: 0; right: 0; bottom: 4px; text-align: center; font-size: 10px; color: #666; }
 
 /* Visual helpers */
 .thermo svg { display: block; margin: 0 auto; }
 .wind       { text-align: center; }
+
+/* ======================================================
+   WEATHER SECTION — robust alignment on VVX
+   ====================================================== */
+
+/* Top row: temp on the left, icon on the right */
+.w-top { height: 28px; }
+.w-temp {
+  display: inline-block;
+  width: 260px;                 /* leaves room for the icon (30px) + gap */
+  vertical-align: top;
+}
+.w-icon {
+  display: inline-block;
+  vertical-align: top;
+}
+
+/* Wind speed line */
+.w-windline { margin: 2px 0 4px 0; }
+
+/* Bottom row: 2 columns via table (safest on VVX) */
+.w-bottom {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+.w-bottom td {
+  vertical-align: top;
+  padding: 0;
+}
+.w-left  { width: 50%; text-align: left; }
+.w-right { width: 50%; text-align: center; }
+
+/* Thermometer label tight to SVG */
+.w-feels   { text-align: center; margin-top: 2px; }
+
+/* Wind direction labels */
+.w-dirlabel{ margin-bottom: 2px; }
+.w-deg     { margin-top: 2px; }
 
 /* ======================================================
    Dark mode (auto between sunset → sunrise)
@@ -113,41 +118,25 @@ html, body {
   background: #0E1117;
   color: #E2E8F0;
 }
-
-/* Header */
 .dark-mode .page-header {
   border-bottom: 2px solid #F6AD55;
   background: #1A202C;
 }
-
-.dark-mode .logo {
-  filter: brightness(1.15);
-}
-
 .dark-mode .title,
 .dark-mode .label {
   color: #F6AD55;
 }
-
-/* Content text */
+.dark-mode .updated {
+  color: #A0AEC0;
+}
 .dark-mode .list-compact li {
   color: #E2E8F0;
 }
 
-.dark-mode .updated {
-  color: #A0AEC0;
-}
-
 /* SVG colour adaptations for dark theme */
-.dark-mode svg rect[fill="#ddd"] {
-  fill: #2D3748 !important;
-}
+.dark-mode svg rect[fill="#ddd"] { fill: #2D3748 !important; }
 .dark-mode svg rect[fill="#FD9803"],
-.dark-mode svg circle[fill="#FD9803"] {
-  fill: #F6AD55 !important;
-}
+.dark-mode svg circle[fill="#FD9803"] { fill: #F6AD55 !important; }
 .dark-mode .wind svg polygon,
 .dark-mode .wind svg rect,
-.dark-mode .wind svg circle {
-  fill: #E2E8F0;
-}
+.dark-mode .wind svg circle { fill: #E2E8F0; }
