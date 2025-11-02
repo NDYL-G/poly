@@ -1,6 +1,9 @@
-/* css/vvx.css — VVX-safe external stylesheet with dark-mode support */
+/* ======================================================
+   Poly VVX411 — External Stylesheet (VVX-safe)
+   Light + Dark theme support
+   ====================================================== */
 
-/* Base page */
+/* ===== Base page ===== */
 html, body {
   margin: 0;
   padding: 0;
@@ -8,6 +11,7 @@ html, body {
   color: #112656;
   font-family: Arial, sans-serif;
 }
+
 .vvx-page {
   width: 320px;
   height: 240px;
@@ -16,33 +20,65 @@ html, body {
   position: relative;
 }
 
-/* Header (inline-block alignment — more reliable than flex on VVX) */
+/* ======================================================
+   Header (VVX-safe alignment)
+   ====================================================== */
 .page-header {
   border-bottom: 2px solid #FD9803;
   background: #fff;
-  padding: 4px 6px;
-  font-size: 0;            /* remove inline-block whitespace gap */
+  padding: 2px 6px;
+  font-size: 0;               /* remove gaps between inline-blocks */
+  white-space: nowrap;        /* keep items on one line */
 }
+
+/* Align logo and text */
 .page-header .brand,
 .page-header .heading {
   display: inline-block;
   vertical-align: middle;
-  font-size: 12px;         /* restore text size in children */
+  font-size: 12px;            /* restore text size */
 }
-.page-header .brand { width: 80px; }
-.page-header .heading { width: calc(100% - 80px); text-align: right; }
 
-.logo  { height: 18px; display: block; }
-.title { font-weight: bold; color: #FD9803; font-size: 12px; line-height: 1.1; }
-.date  { font-size: 11px; line-height: 1.1; }
+.page-header .brand {
+  width: 70px;                /* logo area width (adjust if needed) */
+  text-align: left;
+}
 
-/* Content area */
-.content { padding: 6px 8px; }
+.page-header .heading {
+  width: 240px;               /* 320px - 70px - ~10px padding */
+  text-align: right;
+  overflow: hidden;
+}
 
-/* Simple layout helpers */
-.row   { width: 100%; margin: 4px 0; }
-.stack { display: block; }
-.center { text-align: center; }
+/* Logo and text styles */
+.logo {
+  height: 18px;
+  display: block;
+}
+
+.title {
+  font-weight: bold;
+  color: #FD9803;
+  font-size: 12px;
+  line-height: 1.1;
+}
+
+.date {
+  font-size: 11px;
+  line-height: 1.1;
+}
+
+/* ======================================================
+   Main content area
+   ====================================================== */
+.content {
+  padding: 6px 8px;
+}
+
+/* Layout helpers */
+.row     { width: 100%; margin: 4px 0; }
+.stack   { display: block; }
+.center  { text-align: center; }
 
 /* Typography */
 .text-xs { font-size: 10px; }
@@ -62,24 +98,30 @@ html, body {
 
 /* Labels & footer */
 .label   { font-weight: bold; color: #FD9803; }
-.updated { position: absolute; left: 0; right: 0; bottom: 4px; text-align: center; font-size: 10px; color: #666; }
+.updated { position: absolute; left: 0; right: 0; bottom: 4px;
+           text-align: center; font-size: 10px; color: #666; }
 
-/* Thermometer & wind */
+/* Visual helpers */
 .thermo svg { display: block; margin: 0 auto; }
 .wind       { text-align: center; }
 
-/* ===============================
-   Dark mode (auto between sunset→sunrise)
-   =============================== */
+/* ======================================================
+   Dark mode (auto between sunset → sunrise)
+   ====================================================== */
 .dark-mode body,
 .dark-mode .vvx-page {
   background: #0E1117;
   color: #E2E8F0;
 }
 
+/* Header */
 .dark-mode .page-header {
   border-bottom: 2px solid #F6AD55;
   background: #1A202C;
+}
+
+.dark-mode .logo {
+  filter: brightness(1.15);
 }
 
 .dark-mode .title,
@@ -87,19 +129,23 @@ html, body {
   color: #F6AD55;
 }
 
-.dark-mode .updated {
-  color: #A0AEC0;
-}
-
+/* Content text */
 .dark-mode .list-compact li {
   color: #E2E8F0;
 }
 
-/* SVG colour adaptations for dark theme */
-.dark-mode svg rect[fill="#ddd"] { fill: #2D3748 !important; }
-.dark-mode svg rect[fill="#FD9803"],
-.dark-mode svg circle[fill="#FD9803"] { fill: #F6AD55 !important; }
+.dark-mode .updated {
+  color: #A0AEC0;
+}
 
+/* SVG colour adaptations for dark theme */
+.dark-mode svg rect[fill="#ddd"] {
+  fill: #2D3748 !important;
+}
+.dark-mode svg rect[fill="#FD9803"],
+.dark-mode svg circle[fill="#FD9803"] {
+  fill: #F6AD55 !important;
+}
 .dark-mode .wind svg polygon,
 .dark-mode .wind svg rect,
 .dark-mode .wind svg circle {
