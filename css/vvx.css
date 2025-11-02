@@ -1,48 +1,76 @@
-/* css/vvx.css  — Poly VVX safe stylesheet  (no flexbox) */
-html,body {
-  margin:0; padding:0;
-  background:#f4f4f4; color:#112656;
-  font-family:Arial,sans-serif;
+/* css/vvx.css — VVX-safe external stylesheet with dark-mode support */
+
+/* Base page */
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #f4f4f4;
+  color: #112656;
+  font-family: Arial, sans-serif;
 }
-.vvx-page { width:320px; height:240px; overflow:hidden; background:#fff; position:relative; }
+.vvx-page {
+  width: 320px;
+  height: 240px;
+  overflow: hidden;
+  background: #fff;
+  position: relative;
+}
 
-/* ===== Header ===== */
-.page-header { border-bottom:2px solid #FD9803; background:#fff; }
-.hdr { width:100%; border-collapse:collapse; table-layout:fixed; }
-.hdr-left, .hdr-right { vertical-align:middle; padding:4px 6px; }
-.hdr-left { width:60px; }
-.hdr-right { text-align:right; }
-.logo { height:18px; display:block; }
-.title { font-weight:bold; color:#FD9803; font-size:12px; line-height:1.1; }
-.date { font-size:11px; line-height:1.1; }
+/* Header (inline-block alignment — more reliable than flex on VVX) */
+.page-header {
+  border-bottom: 2px solid #FD9803;
+  background: #fff;
+  padding: 4px 6px;
+  font-size: 0;            /* remove inline-block whitespace gap */
+}
+.page-header .brand,
+.page-header .heading {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 12px;         /* restore text size in children */
+}
+.page-header .brand { width: 80px; }
+.page-header .heading { width: calc(100% - 80px); text-align: right; }
 
-/* ===== Content ===== */
-.content { padding:6px 8px; }
-.row { width:100%; }
-.stack { display:block; }
-.center { text-align:center; }
+.logo  { height: 18px; display: block; }
+.title { font-weight: bold; color: #FD9803; font-size: 12px; line-height: 1.1; }
+.date  { font-size: 11px; line-height: 1.1; }
 
-/* ===== Typography ===== */
-.text-xs { font-size:10px; }
-.text-sm { font-size:11px; }
-.text-md { font-size:12px; }
-.text-lg { font-size:18px; font-weight:bold; }
-.bold { font-weight:bold; }
+/* Content area */
+.content { padding: 6px 8px; }
 
-/* ===== Icons ===== */
-.icon-28{width:28px;height:28px;}
-.icon-30{width:30px;height:30px;}
-.icon-32{width:32px;height:32px;}
+/* Simple layout helpers */
+.row   { width: 100%; margin: 4px 0; }
+.stack { display: block; }
+.center { text-align: center; }
 
-/* ===== Lists ===== */
-.list-compact{margin:0;padding:0;list-style:none;}
-.list-compact li{font-size:11px;line-height:1.25;margin:0 0 2px 0;}
+/* Typography */
+.text-xs { font-size: 10px; }
+.text-sm { font-size: 11px; }
+.text-md { font-size: 12px; }
+.text-lg { font-size: 18px; font-weight: bold; }
+.bold    { font-weight: bold; }
 
-/* ===== Labels and footer ===== */
-.label{font-weight:bold;color:#FD9803;}
-.updated{position:absolute;left:0;right:0;bottom:4px;text-align:center;font-size:10px;color:#666;}
+/* Icons */
+.icon-28 { width: 28px; height: 28px; }
+.icon-30 { width: 30px; height: 30px; }
+.icon-32 { width: 32px; height: 32px; }
 
-/* ===== Dark mode palette ===== */
+/* Lists */
+.list-compact      { margin: 0; padding: 0; list-style: none; }
+.list-compact li   { font-size: 11px; line-height: 1.25; margin: 0 0 2px 0; }
+
+/* Labels & footer */
+.label   { font-weight: bold; color: #FD9803; }
+.updated { position: absolute; left: 0; right: 0; bottom: 4px; text-align: center; font-size: 10px; color: #666; }
+
+/* Thermometer & wind */
+.thermo svg { display: block; margin: 0 auto; }
+.wind       { text-align: center; }
+
+/* ===============================
+   Dark mode (auto between sunset→sunrise)
+   =============================== */
 .dark-mode body,
 .dark-mode .vvx-page {
   background: #0E1117;
@@ -54,14 +82,7 @@ html,body {
   background: #1A202C;
 }
 
-.dark-mode .logo {
-  filter: brightness(1.2);
-}
-
-.dark-mode .title {
-  color: #F6AD55;
-}
-
+.dark-mode .title,
 .dark-mode .label {
   color: #F6AD55;
 }
@@ -74,29 +95,13 @@ html,body {
   color: #E2E8F0;
 }
 
-.dark-mode svg rect[fill="#ddd"] {
-  fill: #2D3748 !important;
-}
-
+/* SVG colour adaptations for dark theme */
+.dark-mode svg rect[fill="#ddd"] { fill: #2D3748 !important; }
 .dark-mode svg rect[fill="#FD9803"],
-.dark-mode svg circle[fill="#FD9803"] {
-  fill: #F6AD55 !important;
-}
-
-.dark-mode svg polygon,
-.dark-mode svg rect,
-.dark-mode svg circle {
-  stroke: none;
-  fill: #E2E8F0;
-}
+.dark-mode svg circle[fill="#FD9803"] { fill: #F6AD55 !important; }
 
 .dark-mode .wind svg polygon,
 .dark-mode .wind svg rect,
 .dark-mode .wind svg circle {
   fill: #E2E8F0;
 }
-
-
-/* ===== Thermometer / wind tweaks ===== */
-.thermo svg{display:block;margin:0 auto;}
-.wind{text-align:center;}
