@@ -196,7 +196,22 @@ const sunBody = `
 </section>`;
 
 // HTML wrapper
+// Determine theme based on current time vs sunrise/sunset
+const isAfterSunset = (() => {
+  try {
+    const now = new Date();
+    const sRise = new Date(`${ymdLocal()}T${sunrise.replace(/(\d+):(\d+)/, "$1:$2")}`);
+    const sSet  = new Date(`${ymdLocal()}T${sunset.replace(/(\d+):(\d+)/, "$1:$2")}`);
+    const hNow  = now.getHours() + now.getMinutes() / 60;
+    const hRise = Number(sunrise.split(":")[0]) + Number(sunrise.split(":")[1] || 0) / 60;
+    const hSet  = Number(sunset.split(":")[0]) + Number(sunset.split(":")[1] || 0) / 60;
+    return hNow >= hSet || hNow < hRise; // dark between sunset and sunrise
+  } catch { return false; }
+})();
+const themeClass = isAfterSunset ? "dark-mode" : "";
 const wrap = (title, body, nextPage) => `<!DOCTYPE html>
+<html lang="en" class="${themeClass}">
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
