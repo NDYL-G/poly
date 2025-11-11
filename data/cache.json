@@ -1,12 +1,12 @@
 {
   "weather": {
-    "c": 10,
-    "f": 50,
-    "kmh": 12,
-    "mph": 7,
-    "winddir": 170,
-    "icon": "cloudy",
-    "_ts": "2025-11-10T22:19:04.084Z"
+    "c": 14,
+    "f": 57,
+    "kmh": 31,
+    "mph": 19,
+    "winddir": 181,
+    "icon": "rain",
+    "_ts": "2025-11-11T06:30:53.138Z"
   },
   "tides2d": {
     "_date": "2025-11-01",
@@ -82,10 +82,10 @@
     }
   },
   "astronomy": {
-    "sunrise": "06:50 AM",
-    "sunset": "04:35 PM",
-    "phaseName": "Waning Gibbous",
-    "phaseIcon": "waning-gibbous",
-    "_date": "2025-11-10"
+    "sunrise": "06:52 AM",
+    "sunset": "04:34 PM",
+    "phaseName": "Last Quarter",
+    "phaseIcon": "last-quarter",
+    "_date": "2025-11-11"
   }
 }
