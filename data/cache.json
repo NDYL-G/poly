@@ -2,11 +2,11 @@
   "weather": {
     "c": 14,
     "f": 57,
-    "kmh": 26,
-    "mph": 16,
-    "winddir": 192,
+    "kmh": 24,
+    "mph": 15,
+    "winddir": 174,
     "icon": "rain",
-    "_ts": "2025-11-11T22:19:07.287Z"
+    "_ts": "2025-11-12T06:30:36.674Z"
   },
   "tides2d": {
     "_date": "2025-11-01",
@@ -82,10 +82,10 @@
     }
   },
   "astronomy": {
-    "sunrise": "06:52 AM",
-    "sunset": "04:34 PM",
+    "sunrise": "06:53 AM",
+    "sunset": "04:33 PM",
     "phaseName": "Last Quarter",
     "phaseIcon": "last-quarter",
-    "_date": "2025-11-11"
+    "_date": "2025-11-12"
   }
 }
