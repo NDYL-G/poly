@@ -1,12 +1,12 @@
 {
   "weather": {
-    "c": 11,
-    "f": 52,
-    "kmh": 20,
-    "mph": 12,
-    "winddir": 254,
-    "icon": "rain",
-    "_ts": "2025-11-27T22:18:26.370Z"
+    "c": 10,
+    "f": 50,
+    "kmh": 15,
+    "mph": 9,
+    "winddir": 233,
+    "icon": "cloudy",
+    "_ts": "2025-11-28T06:31:41.178Z"
   },
   "tides2d": {
     "_date": "2025-11-01",
@@ -82,10 +82,10 @@
     }
   },
   "astronomy": {
-    "sunrise": "07:13 AM",
+    "sunrise": "07:14 AM",
     "sunset": "04:20 PM",
     "phaseName": "First Quarter",
     "phaseIcon": "first-quarter",
-    "_date": "2025-11-27"
+    "_date": "2025-11-28"
   }
 }
