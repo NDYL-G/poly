@@ -1,12 +1,12 @@
 {
   "weather": {
-    "c": 4,
-    "f": 39,
-    "kmh": 9,
-    "mph": 6,
-    "winddir": 203,
-    "icon": "clear-day",
-    "_ts": "2025-12-04T22:17:56.124Z"
+    "c": 7,
+    "f": 45,
+    "kmh": 20,
+    "mph": 12,
+    "winddir": 183,
+    "icon": "rain",
+    "_ts": "2025-12-05T06:32:22.829Z"
   },
   "tides2d": {
     "_date": "2025-11-01",
@@ -82,10 +82,10 @@
     }
   },
   "astronomy": {
-    "sunrise": "07:21 AM",
-    "sunset": "04:18 PM",
-    "phaseName": "Full Moon",
-    "phaseIcon": "full-moon",
-    "_date": "2025-12-04"
+    "sunrise": "07:22 AM",
+    "sunset": "04:17 PM",
+    "phaseName": "Waning Gibbous",
+    "phaseIcon": "waning-gibbous",
+    "_date": "2025-12-05"
   }
 }
