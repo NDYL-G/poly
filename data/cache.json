@@ -1,12 +1,12 @@
 {
   "weather": {
-    "c": 9,
-    "f": 48,
-    "kmh": 12,
-    "mph": 7,
-    "winddir": 203,
-    "icon": "cloudy",
-    "_ts": "2025-12-10T17:22:38.742Z"
+    "c": 8,
+    "f": 46,
+    "kmh": 13,
+    "mph": 8,
+    "winddir": 186,
+    "icon": "partly-cloudy",
+    "_ts": "2025-12-10T18:30:18.325Z"
   },
   "tides2d": {
     "_date": "2025-11-01",
