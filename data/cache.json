@@ -1,12 +1,12 @@
 {
   "weather": {
-    "c": 12,
-    "f": 54,
-    "kmh": 22,
-    "mph": 14,
-    "winddir": 180,
-    "icon": "clear-day",
-    "_ts": "2025-12-11T22:20:46.355Z"
+    "c": 7,
+    "f": 45,
+    "kmh": 7,
+    "mph": 4,
+    "winddir": 307,
+    "icon": "rain",
+    "_ts": "2025-12-12T06:33:46.480Z"
   },
   "tides2d": {
     "_date": "2025-11-01",
@@ -82,10 +82,10 @@
     }
   },
   "astronomy": {
-    "sunrise": "07:28 AM",
+    "sunrise": "07:29 AM",
     "sunset": "04:17 PM",
-    "phaseName": "Last Quarter",
-    "phaseIcon": "last-quarter",
-    "_date": "2025-12-11"
+    "phaseName": "Waning Crescent",
+    "phaseIcon": "waning-crescent",
+    "_date": "2025-12-12"
   }
 }
