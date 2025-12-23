@@ -1,12 +1,12 @@
 {
   "weather": {
-    "c": 10,
-    "f": 50,
-    "kmh": 26,
-    "mph": 16,
-    "winddir": 99,
+    "c": 9,
+    "f": 48,
+    "kmh": 18,
+    "mph": 11,
+    "winddir": 102,
     "icon": "rain",
-    "_ts": "2025-12-22T22:20:23.144Z"
+    "_ts": "2025-12-23T06:34:25.028Z"
   },
   "tides2d": {
     "_date": "2025-11-01",
@@ -82,10 +82,10 @@
     }
   },
   "astronomy": {
-    "sunrise": "07:35 AM",
-    "sunset": "04:20 PM",
+    "sunrise": "07:36 AM",
+    "sunset": "04:21 PM",
     "phaseName": "Waxing Crescent",
     "phaseIcon": "waxing-crescent",
-    "_date": "2025-12-22"
+    "_date": "2025-12-23"
   }
 }
