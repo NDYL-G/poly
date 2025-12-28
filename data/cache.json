@@ -2,11 +2,11 @@
   "weather": {
     "c": 6,
     "f": 43,
-    "kmh": 24,
-    "mph": 15,
-    "winddir": 84,
+    "kmh": 22,
+    "mph": 14,
+    "winddir": 88,
     "icon": "rain",
-    "_ts": "2025-12-27T22:18:53.514Z"
+    "_ts": "2025-12-28T06:31:47.932Z"
   },
   "tides2d": {
     "_date": "2025-11-01",
@@ -84,8 +84,8 @@
   "astronomy": {
     "sunrise": "07:37 AM",
     "sunset": "04:24 PM",
-    "phaseName": "First Quarter",
-    "phaseIcon": "first-quarter",
-    "_date": "2025-12-27"
+    "phaseName": "Waxing Gibbous",
+    "phaseIcon": "waxing-gibbous",
+    "_date": "2025-12-28"
   }
 }
