@@ -2,11 +2,11 @@
   "weather": {
     "c": 11,
     "f": 52,
-    "kmh": 31,
-    "mph": 19,
-    "winddir": 220,
+    "kmh": 24,
+    "mph": 15,
+    "winddir": 214,
     "icon": "rain",
-    "_ts": "2026-01-11T22:19:36.982Z"
+    "_ts": "2026-01-12T06:37:13.927Z"
   },
   "tides2d": {
     "_date": "2025-11-01",
@@ -82,10 +82,10 @@
     }
   },
   "astronomy": {
-    "sunrise": "07:36 AM",
-    "sunset": "04:39 PM",
+    "sunrise": "07:35 AM",
+    "sunset": "04:40 PM",
     "phaseName": "Waning Crescent",
     "phaseIcon": "waning-crescent",
-    "_date": "2026-01-11"
+    "_date": "2026-01-12"
   }
 }
