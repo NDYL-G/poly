@@ -1,12 +1,12 @@
 {
   "weather": {
-    "c": 5,
-    "f": 41,
-    "kmh": 12,
-    "mph": 7,
-    "winddir": 130,
+    "c": 2,
+    "f": 36,
+    "kmh": 7,
+    "mph": 4,
+    "winddir": 90,
     "icon": "clear-day",
-    "_ts": "2026-01-17T22:19:31.785Z"
+    "_ts": "2026-01-18T06:31:58.154Z"
   },
   "tides2d": {
     "_date": "2025-11-01",
@@ -82,10 +82,10 @@
     }
   },
   "astronomy": {
-    "sunrise": "07:33 AM",
-    "sunset": "04:46 PM",
-    "phaseName": "Waning Crescent",
-    "phaseIcon": "waning-crescent",
-    "_date": "2026-01-17"
+    "sunrise": "07:32 AM",
+    "sunset": "04:47 PM",
+    "phaseName": "New Moon",
+    "phaseIcon": "new-moon",
+    "_date": "2026-01-18"
   }
 }
