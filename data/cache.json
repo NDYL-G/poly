@@ -4,9 +4,9 @@
     "f": 36,
     "kmh": 8,
     "mph": 5,
-    "winddir": 85,
-    "icon": "clear-day",
-    "_ts": "2026-01-18T07:20:08.659Z"
+    "winddir": 95,
+    "icon": "cloudy",
+    "_ts": "2026-01-18T08:27:09.591Z"
   },
   "tides2d": {
     "_date": "2025-11-01",
