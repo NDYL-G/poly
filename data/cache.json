@@ -2,11 +2,11 @@
   "weather": {
     "c": 7,
     "f": 45,
-    "kmh": 4,
-    "mph": 2,
-    "winddir": 197,
-    "icon": "rain",
-    "_ts": "2026-02-18T20:39:10.380Z"
+    "kmh": 12,
+    "mph": 7,
+    "winddir": 338,
+    "icon": "clear-day",
+    "_ts": "2026-02-18T21:34:30.889Z"
   },
   "tides2d": {
     "_date": "2026-02-18",
