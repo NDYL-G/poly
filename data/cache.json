@@ -4,9 +4,9 @@
     "f": 46,
     "kmh": 21,
     "mph": 13,
-    "winddir": 292,
+    "winddir": 213,
     "icon": "rain",
-    "_ts": "2026-02-19T22:31:41.707Z"
+    "_ts": "2026-02-20T06:56:57.635Z"
   },
   "tides2d": {
     "_date": "2026-02-20",
@@ -26,10 +26,10 @@
     ]
   },
   "astronomy": {
-    "sunrise": "06:55 AM",
-    "sunset": "05:32 PM",
+    "sunrise": "06:52 AM",
+    "sunset": "05:34 PM",
     "phaseName": "Waxing Crescent",
     "phaseIcon": "waxing-crescent",
-    "_date": "2026-02-18"
+    "_date": "2026-02-20"
   }
 }
