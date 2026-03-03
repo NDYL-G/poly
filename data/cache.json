@@ -2,11 +2,11 @@
   "weather": {
     "c": 8,
     "f": 46,
-    "kmh": 8,
-    "mph": 5,
-    "winddir": 10,
+    "kmh": 3,
+    "mph": 2,
+    "winddir": 20,
     "icon": "rain",
-    "_ts": "2026-03-02T22:26:40.265Z"
+    "_ts": "2026-03-03T06:52:41.420Z"
   },
   "tides2d": {
     "_date": "2026-03-03",
@@ -25,10 +25,10 @@
     ]
   },
   "astronomy": {
-    "sunrise": "06:35 AM",
-    "sunset": "05:48 PM",
-    "phaseName": "Waxing Gibbous",
-    "phaseIcon": "waxing-gibbous",
-    "_date": "2026-03-02"
+    "sunrise": "06:33 AM",
+    "sunset": "05:49 PM",
+    "phaseName": "Full Moon",
+    "phaseIcon": "full-moon",
+    "_date": "2026-03-03"
   }
 }
