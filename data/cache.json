@@ -9,20 +9,20 @@
     "_ts": "2026-03-05T22:31:30.143Z"
   },
   "tides2d": {
-    "_date": "2026-03-05",
-    "todayKey": "2026-03-05",
-    "tomorrowKey": "2026-03-06",
+    "_date": "2026-03-06",
+    "todayKey": "2026-03-06",
+    "tomorrowKey": "2026-03-07",
     "todayItems": [
-      "↓ Low 00:30 — -3.7 m",
-      "↑ High 06:32 — 3.7 m",
-      "↓ Low 12:50 — -3.7 m",
-      "↑ High 18:49 — 3.4 m"
-    ],
-    "tomorrowItems": [
       "↓ Low 01:01 — -3.6 m",
       "↑ High 07:05 — 3.5 m",
       "↓ Low 13:19 — -3.5 m",
       "↑ High 19:20 — 3.2 m"
+    ],
+    "tomorrowItems": [
+      "↓ Low 01:31 — -3.4 m",
+      "↑ High 07:36 — 3.2 m",
+      "↓ Low 13:48 — -3.2 m",
+      "↑ High 19:51 — 2.9 m"
     ]
   },
   "astronomy": {
