@@ -2,11 +2,11 @@
   "weather": {
     "c": 8,
     "f": 46,
-    "kmh": 4,
-    "mph": 2,
-    "winddir": 74,
+    "kmh": 2,
+    "mph": 1,
+    "winddir": 76,
     "icon": "rain",
-    "_ts": "2026-03-07T22:23:34.796Z"
+    "_ts": "2026-03-08T06:42:38.193Z"
   },
   "tides2d": {
     "_date": "2026-03-08",
@@ -26,10 +26,10 @@
     ]
   },
   "astronomy": {
-    "sunrise": "06:26 AM",
-    "sunset": "05:55 PM",
+    "sunrise": "06:24 AM",
+    "sunset": "05:56 PM",
     "phaseName": "Waning Gibbous",
     "phaseIcon": "waning-gibbous",
-    "_date": "2026-03-07"
+    "_date": "2026-03-08"
   }
 }
