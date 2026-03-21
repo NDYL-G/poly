@@ -2,11 +2,11 @@
   "weather": {
     "c": 12,
     "f": 54,
-    "kmh": 13,
-    "mph": 8,
-    "winddir": 320,
-    "icon": "cloudy",
-    "_ts": "2026-03-21T12:49:56.916Z"
+    "kmh": 12,
+    "mph": 7,
+    "winddir": 332,
+    "icon": "partly-cloudy",
+    "_ts": "2026-03-21T13:41:54.224Z"
   },
   "tides2d": {
     "_date": "2026-03-21",
