@@ -1,12 +1,12 @@
 {
   "weather": {
-    "c": 8,
-    "f": 46,
-    "kmh": 17,
-    "mph": 11,
-    "winddir": 196,
+    "c": 10,
+    "f": 50,
+    "kmh": 24,
+    "mph": 15,
+    "winddir": 246,
     "icon": "rain",
-    "_ts": "2026-04-02T21:37:45.668Z"
+    "_ts": "2026-04-03T05:04:42.456Z"
   },
   "tides2d": {
     "_date": "2026-03-28",
@@ -26,10 +26,10 @@
     ]
   },
   "astronomy": {
-    "sunrise": "06:37 AM",
-    "sunset": "07:28 PM",
-    "phaseName": "Full Moon",
-    "phaseIcon": "full-moon",
-    "_date": "2026-04-02"
+    "sunrise": "06:36 AM",
+    "sunset": "07:30 PM",
+    "phaseName": "Waning Gibbous",
+    "phaseIcon": "waning-gibbous",
+    "_date": "2026-04-03"
   }
 }
