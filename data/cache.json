@@ -4,9 +4,9 @@
     "f": 46,
     "kmh": 10,
     "mph": 6,
-    "winddir": 230,
-    "icon": "clear-day",
-    "_ts": "2026-04-17T21:40:55.753Z"
+    "winddir": 284,
+    "icon": "partly-cloudy",
+    "_ts": "2026-04-18T05:06:22.027Z"
   },
   "tides2d": {
     "_date": "2026-03-28",
@@ -26,10 +26,10 @@
     ]
   },
   "astronomy": {
-    "sunrise": "06:10 AM",
-    "sunset": "07:47 PM",
-    "phaseName": "New Moon",
-    "phaseIcon": "new-moon",
-    "_date": "2026-04-17"
+    "sunrise": "06:09 AM",
+    "sunset": "07:49 PM",
+    "phaseName": "Waxing Crescent",
+    "phaseIcon": "waxing-crescent",
+    "_date": "2026-04-18"
   }
 }
