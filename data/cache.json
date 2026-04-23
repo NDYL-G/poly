@@ -26,10 +26,10 @@
     ]
   },
   "astronomy": {
-    "sunrise": "06:02 AM",
-    "sunset": "07:54 PM",
-    "phaseName": "Waxing Crescent",
-    "phaseIcon": "waxing-crescent",
-    "_date": "2026-04-22"
+    "sunrise": "06:01 AM",
+    "sunset": "07:55 PM",
+    "phaseName": "First Quarter",
+    "phaseIcon": "first-quarter",
+    "_date": "2026-04-23"
   }
 }
