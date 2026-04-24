@@ -1,12 +1,12 @@
 {
   "weather": {
-    "c": 13,
-    "f": 55,
-    "kmh": 23,
-    "mph": 14,
-    "winddir": 102,
-    "icon": "clear-day",
-    "_ts": "2026-04-23T21:45:23.174Z"
+    "c": 10,
+    "f": 50,
+    "kmh": 19,
+    "mph": 12,
+    "winddir": 114,
+    "icon": "cloudy",
+    "_ts": "2026-04-24T05:35:03.885Z"
   },
   "tides2d": {
     "_date": "2026-03-28",
@@ -26,10 +26,10 @@
     ]
   },
   "astronomy": {
-    "sunrise": "06:01 AM",
-    "sunset": "07:55 PM",
-    "phaseName": "First Quarter",
-    "phaseIcon": "first-quarter",
-    "_date": "2026-04-23"
+    "sunrise": "05:59 AM",
+    "sunset": "07:56 PM",
+    "phaseName": "Waxing Gibbous",
+    "phaseIcon": "waxing-gibbous",
+    "_date": "2026-04-24"
   }
 }
