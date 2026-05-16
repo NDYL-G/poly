@@ -1,12 +1,12 @@
 {
   "weather": {
-    "c": 10,
-    "f": 50,
-    "kmh": 16,
-    "mph": 10,
-    "winddir": 300,
+    "c": 9,
+    "f": 48,
+    "kmh": 5,
+    "mph": 3,
+    "winddir": 175,
     "icon": "rain",
-    "_ts": "2026-05-15T21:00:42.550Z"
+    "_ts": "2026-05-16T05:54:46.367Z"
   },
   "tides2d": {
     "_date": "2026-03-28",
@@ -26,10 +26,10 @@
     ]
   },
   "astronomy": {
-    "sunrise": "05:37 AM",
-    "sunset": "08:14 PM",
-    "phaseName": "Last Quarter",
-    "phaseIcon": "last-quarter",
-    "_date": "2026-05-09"
+    "sunrise": "05:29 AM",
+    "sunset": "08:22 PM",
+    "phaseName": "New Moon",
+    "phaseIcon": "new-moon",
+    "_date": "2026-05-16"
   }
 }
