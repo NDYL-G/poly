@@ -4,9 +4,9 @@
     "f": 54,
     "kmh": 5,
     "mph": 3,
-    "winddir": 36,
+    "winddir": 111,
     "icon": "clear-day",
-    "_ts": "2026-06-13T20:15:23.294Z"
+    "_ts": "2026-06-14T05:49:01.915Z"
   },
   "tides2d": {
     "_date": "2026-03-28",
@@ -27,9 +27,9 @@
   },
   "astronomy": {
     "sunrise": "05:11 AM",
-    "sunset": "08:45 PM",
-    "phaseName": "Waning Crescent",
-    "phaseIcon": "waning-crescent",
-    "_date": "2026-06-11"
+    "sunset": "08:46 PM",
+    "phaseName": "New Moon",
+    "phaseIcon": "new-moon",
+    "_date": "2026-06-14"
   }
 }
