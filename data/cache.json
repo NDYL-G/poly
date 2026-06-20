@@ -1,12 +1,12 @@
 {
   "weather": {
-    "c": 16,
-    "f": 61,
-    "kmh": 8,
-    "mph": 5,
-    "winddir": 186,
+    "c": 15,
+    "f": 59,
+    "kmh": 7,
+    "mph": 4,
+    "winddir": 256,
     "icon": "rain",
-    "_ts": "2026-06-19T21:10:48.773Z"
+    "_ts": "2026-06-20T05:13:40.903Z"
   },
   "tides2d": {
     "_date": "2026-03-28",
@@ -27,9 +27,9 @@
   },
   "astronomy": {
     "sunrise": "05:11 AM",
-    "sunset": "08:46 PM",
-    "phaseName": "New Moon",
-    "phaseIcon": "new-moon",
-    "_date": "2026-06-14"
+    "sunset": "08:49 PM",
+    "phaseName": "Waxing Crescent",
+    "phaseIcon": "waxing-crescent",
+    "_date": "2026-06-20"
   }
 }
