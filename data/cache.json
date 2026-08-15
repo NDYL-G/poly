@@ -1,12 +1,12 @@
 {
   "weather": {
-    "c": 19,
-    "f": 66,
-    "kmh": 14,
-    "mph": 9,
-    "winddir": 335,
-    "icon": "rain",
-    "_ts": "2026-08-14T21:23:26.775Z"
+    "c": 18,
+    "f": 64,
+    "kmh": 16,
+    "mph": 10,
+    "winddir": 2,
+    "icon": "cloudy",
+    "_ts": "2026-08-15T05:22:41.721Z"
   },
   "tides2d": {
     "_date": "2026-08-15",
@@ -26,10 +26,10 @@
     ]
   },
   "astronomy": {
-    "sunrise": "05:56 AM",
-    "sunset": "08:12 PM",
-    "phaseName": "Waning Crescent",
-    "phaseIcon": "waning-crescent",
-    "_date": "2026-08-11"
+    "sunrise": "06:00 AM",
+    "sunset": "08:06 PM",
+    "phaseName": "Waxing Crescent",
+    "phaseIcon": "waxing-crescent",
+    "_date": "2026-08-15"
   }
 }
