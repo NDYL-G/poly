@@ -2,11 +2,11 @@
   "weather": {
     "c": 15,
     "f": 59,
-    "kmh": 8,
-    "mph": 5,
-    "winddir": 142,
+    "kmh": 16,
+    "mph": 10,
+    "winddir": 140,
     "icon": "rain",
-    "_ts": "2026-09-05T20:04:25.367Z"
+    "_ts": "2026-09-06T05:32:03.650Z"
   },
   "tides2d": {
     "_date": "2026-09-03",
@@ -26,10 +26,10 @@
     ]
   },
   "astronomy": {
-    "sunrise": "06:24 AM",
-    "sunset": "07:31 PM",
-    "phaseName": "Last Quarter",
-    "phaseIcon": "last-quarter",
-    "_date": "2026-09-04"
+    "sunrise": "06:27 AM",
+    "sunset": "07:27 PM",
+    "phaseName": "Waning Crescent",
+    "phaseIcon": "waning-crescent",
+    "_date": "2026-09-06"
   }
 }
