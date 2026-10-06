@@ -1,12 +1,12 @@
 {
   "weather": {
-    "c": 13,
-    "f": 55,
-    "kmh": 4,
-    "mph": 2,
-    "winddir": 281,
+    "c": 10,
+    "f": 50,
+    "kmh": 8,
+    "mph": 5,
+    "winddir": 84,
     "icon": "clear-day",
-    "_ts": "2026-10-05T17:57:09.964Z"
+    "_ts": "2026-10-06T05:07:35.095Z"
   },
   "tides2d": {
     "_date": "2026-10-05",
@@ -25,10 +25,10 @@
     ]
   },
   "astronomy": {
-    "sunrise": "06:49 AM",
-    "sunset": "06:51 PM",
-    "phaseName": "Waxing Gibbous",
-    "phaseIcon": "waxing-gibbous",
-    "_date": "2026-09-25"
+    "sunrise": "07:03 AM",
+    "sunset": "06:30 PM",
+    "phaseName": "Waning Crescent",
+    "phaseIcon": "waning-crescent",
+    "_date": "2026-10-06"
   }
 }
